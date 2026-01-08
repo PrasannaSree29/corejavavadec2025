@@ -11,8 +11,6 @@ public class Eureka {
 
         int k = i + j; //Statically typed or type-safe language
         System.out.println("Value of i is " + i);
-        System.out.println("Sum of i and j is " + (i + j));
-
 //        float floatSum = sumFloatMethod();//calling code taking the return value of sumFloatMethod and assigning it to floatSum variable
 //        System.out.println("Sum of floats f1 and f2 is "+ floatSum);
         float f1 = 53.25f;
@@ -77,3 +75,17 @@ public class Eureka {
         return s1 + " " + s2;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
