@@ -60,6 +60,8 @@ public class Eureka {
 //        appleStock.setTickerName("Apple Inc.");
 //        appleStock.setSectorID(34);
 //        appleStock.setSubSectorID(176);
+        Stock.someJunkMethod(("VALUE"));
+        System.out.println("Before creating a new object on stock class");
         Stock appleStock = new Stock("AAPL", "Apple Inc.", 34, 176);
         BigInteger appleMarketCap = new BigInteger("34000000000");
         appleStock.setMarketCap(appleMarketCap);
@@ -76,6 +78,11 @@ public class Eureka {
         googleStock.setMarketCap(new BigInteger("25000000000"));
         googleStock.setCurrentRatio(1.97);
         System.out.println("Google stock values are " + googleStock.getTickerSymbol() + ",");
+
+
+        System.out.println("output from some junk static method is "+Stock.someJunkMethod("Hello"));
+
+
 //        googleStock.setTickerSymbol("GOOG");
 //        googleStock.setTickerName("Alphabet Inc");
 

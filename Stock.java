@@ -7,12 +7,31 @@ import java.math.BigInteger;
  */
 public class Stock {
 
+    //Code in the static block runs only once when the class is engaged either by
+    // calling a static method on it or creating objects out of it
+    static {
+        System.out.println("Inside the static block in the stock class");
+    }
+
     //default constructor
+    //static variables are generally used to define constants
+    private static final String junkvar = "Whatever";
+
+    /**
+     * Some documentation for this junk static method
+     * @param someInput
+     * @return
+     */
+    //static methods are used to implement functionality purely based on inputs
+    //or to provide utility functionality
+    public static String someJunkMethod(String someInput){
+        return junkvar+someInput;
+    }
     public Stock() {
     }
 
     /**
-     * Constructor that forces creating a stock with present parameters
+     * parameterised Constructor that forces creating a stock with present parameters
      * @param tickerSymbol
      * @param tickerName
      * @param sectorID
@@ -64,6 +83,7 @@ public class Stock {
     }
 
     public void setMarketCap(BigInteger marketCap) {
+        System.out.println(someJunkMethod(junkvar));//static  vaiable/method can be used in Instanced method
         this.marketCap = marketCap;
     }
 
