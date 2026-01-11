@@ -2,7 +2,7 @@ package employeeClassHierarchy;
 
 import java.math.BigDecimal;
 
-public class Employees {
+public abstract class Employees {
 
     private String employeeName;
     private BigDecimal employeeSalary;

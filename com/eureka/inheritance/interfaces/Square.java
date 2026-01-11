@@ -18,3 +18,4 @@ public class Square implements Shape {
         return side.multiply(side);
     }
 }
+

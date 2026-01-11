@@ -36,10 +36,6 @@ public class Assignment2Playground {
         manager3.addSubOrdinates(developer4);
         manager3.addSubOrdinates(tester1);
 
-        Employees[] managers = new Employees[]{manager1,manager2,manager3};
-        Employees[] developers = new Employees[]{developer1,developer2,developer3,developer4};
-        Employees[] testers = new Employees[]{tester1,tester2,tester3,tester4};
-
         ArrayList<String> manager1Subordinates = new ArrayList<>();
         ArrayList<String> manager2Subordinates = new ArrayList<>();
         ArrayList<String> manager3Subordinates = new ArrayList<>();
@@ -58,6 +54,10 @@ public class Assignment2Playground {
             manager3Subordinates.add(employee.getEmployeeName());
         }
         System.out.println(manager3Subordinates);
+
+        Employees[] managers = new Employees[]{manager1,manager2,manager3};
+        Employees[] developers = new Employees[]{developer1,developer2,developer3,developer4};
+        Employees[] testers = new Employees[]{tester1,tester2,tester3,tester4};
 
         BigDecimal managersTotalBonus = BigDecimal.ZERO;
         for(Employees employee : managers){

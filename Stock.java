@@ -1,37 +1,37 @@
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
- * Class that represents real world stock being traded in the US stock exchanges
+ * Class that represents a real world Stock being traded in the US Stock Exchanges
  * Encapsulation is a concept where in the Instance variables of a class are made private and
- * access is restricted via getter and setter
+ * access is restricted via getter and setter methods
  */
 public class Stock {
 
-    //Code in the static block runs only once when the class is engaged either by
-    // calling a static method on it or creating objects out of it
+    //Code in the static block runs only once, the first time the Class is engaged - Either by calling a static method on it or creating objects out of it
     static {
-        System.out.println("Inside the static block in the stock class");
+        System.out.println("Inside the static block in the Stock class");
     }
 
-    //default constructor
-    //static variables are generally used to define constants
-    private static final String junkvar = "Whatever";
+    //Static variables are generally used to define constants
+    private static final String junkVar = "Whatever";
 
     /**
-     * Some documentation for this junk static method
+     * Some documentation for this junk Static method
      * @param someInput
      * @return
      */
-    //static methods are used to implement functionality purely based on inputs
-    //or to provide utility functionality
-    public static String someJunkMethod(String someInput){
-        return junkvar+someInput;
+    //Static methods are used to implement functionality purely based on inputs or to provide utility functionality
+    public static void someJunkMethod(String someInput){
+        System.out.println(junkVar+someInput);
     }
-    public Stock() {
+
+    //Default constructor
+    private Stock() {
     }
 
     /**
-     * parameterised Constructor that forces creating a stock with present parameters
+     * Parameterized Constructor that forces creating a Stock with preset parameters
      * @param tickerSymbol
      * @param tickerName
      * @param sectorID
@@ -42,10 +42,9 @@ public class Stock {
         this.tickerName = tickerName;
         this.sectorID = sectorID;
         this.subSectorID = subSectorID;
-        //System.out.println("Inside 2nd constructor of stock class");
     }
 
-    private String tickerSymbol; //Instance variable
+    private String tickerSymbol; //Instance Variable
     private String tickerName;
     private BigInteger marketCap;
     private int sectorID;
@@ -53,13 +52,12 @@ public class Stock {
     private double currentRatio;
 
     //Getter and Setter methods
-
     public String getTickerSymbol() {
         return tickerSymbol;
     }
 
-//    public void setTickerSymbol(String tickerSymbol) {
-//        this.tickerSymbol = tickerSymbol; // this keyword refers to the current object
+//    public void setTickerSymbol(String tickerSymbolFromOutside) {
+//        this.tickerSymbol = tickerSymbolFromOutside; //this keyword refers to the current object
 //    }
 
     public String getTickerName() {
@@ -70,6 +68,15 @@ public class Stock {
 //        this.tickerName = tickerName;
 //    }
 
+    public BigInteger getMarketCap() {
+        return marketCap;
+    }
+
+    public void setMarketCap(BigInteger marketCap) {
+        //System.out.println(someJunkMethod(junkVar));//Static variable/method can be used in Instanced method
+        this.marketCap = marketCap; //this.marketCap is a Instance Variable of class, marketCap is a method parameter
+    }
+
     public int getSectorID() {
         return sectorID;
     }
@@ -77,15 +84,6 @@ public class Stock {
 //    public void setSectorID(int sectorID) {
 //        this.sectorID = sectorID;
 //    }
-
-    public BigInteger getMarketCap() {
-        return marketCap; //this.marketcap is a instance variable of class, Marketcap is a method
-    }
-
-    public void setMarketCap(BigInteger marketCap) {
-        System.out.println(someJunkMethod(junkvar));//static  vaiable/method can be used in Instanced method
-        this.marketCap = marketCap;
-    }
 
     public int getSubSectorID() {
         return subSectorID;
@@ -103,17 +101,43 @@ public class Stock {
         this.currentRatio = currentRatio;
     }
 
-
-    /**
-     * Write an instance method in Stock class that prints all the values of instance varibles
-     */
-    public void printAllVariables(){
-        System.out.println("Ticker Symbol: " + tickerSymbol);
-        System.out.println("Ticker Name: " + tickerName);
-        System.out.println("Sector Id: " + sectorID);
-        System.out.println("Sub Sector Id: " + subSectorID);
-        System.out.println("Market Cap: " + marketCap);
-        System.out.println("Current Ratio: " + currentRatio);
+    @Override
+    public String toString() {
+        return "Stock{" +
+                "tickerSymbol='" + tickerSymbol + '\'' +
+                ", tickerName='" + tickerName + '\'' +
+                ", marketCap=" + marketCap +
+                ", currentRatio=" + currentRatio +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Stock stock = (Stock) o;
+        return Objects.equals(tickerSymbol, stock.tickerSymbol) && Objects.equals(tickerName, stock.tickerName);
+    }
+
+//    /**
+//     * Our own implementation of the equals method
+//     * @param outsideObject   the reference object with which to compare.
+//     * @return
+//     */
+//    @Override
+//    public boolean equals(Object outsideObject){
+//        boolean isEquals = false;
+//        if(outsideObject!=null && (outsideObject instanceof Stock)) { //Making sure outside Object is not null and of type Stock
+//            Stock outsideStockObj = (Stock)outsideObject; //typecasting from generic object to Stock
+//            if(this.tickerSymbol.equals(outsideStockObj.getTickerSymbol())
+//                    && this.tickerName.equals(outsideStockObj.getTickerName())){ //Checking if tickerSymbol and tickerName values in both objects are the same
+//                isEquals = true;
+//            }
+//        }
+//        return isEquals;
+//    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tickerSymbol, tickerName);
+    }
 }
