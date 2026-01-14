@@ -102,6 +102,7 @@ public class ControlFlowPlayground {
 
 
         dumbInvestmentAdvice(appleStock);
+
     }
 
     private static void dumbInvestmentAdvice(Stock stock) {

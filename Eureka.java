@@ -80,7 +80,7 @@ public class Eureka {
         System.out.println("Google stock values are " + googleStock.getTickerSymbol() + ",");
 
 
-        System.out.println("output from some junk static method is "+Stock.someJunkMethod("Hello"));
+//        System.out.println("output from some junk static method is "+Stock.someJunkMethod("Hello"));
 
 
 //        googleStock.setTickerSymbol("GOOG");
@@ -97,8 +97,8 @@ public class Eureka {
         System.out.println("Value of googleCurrentRatio is "+googleCurrentRatio);
         System.out.println("Google stock values are " + googleStock.getTickerSymbol() + "," + googleStock.getCurrentRatio());
 
-        appleStock.printAllVariables();
-        googleStock.printAllVariables();
+//        appleStock.printAllVariables();
+//        googleStock.printAllVariables();
 
     }
 
