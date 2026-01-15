@@ -44,6 +44,11 @@ public class Stock {
         this.subSectorID = subSectorID;
     }
 
+    public Stock(String tickerSymbol, String tickerName) {
+        this.tickerSymbol = tickerSymbol;
+        this.tickerName = tickerName;
+    }
+
     private String tickerSymbol; //Instance Variable
     private String tickerName;
     private BigInteger marketCap;
