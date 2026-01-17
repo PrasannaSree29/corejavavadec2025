@@ -1,40 +1,41 @@
 package com.eureka.stocks.service;
 
 import com.eureka.stocks.dao.LookUpDAO;
+import com.eureka.stocks.dao.LookUpDAO;
+import com.eureka.stocks.dao.StockFundamentalsDao;
 import com.eureka.stocks.vo.SectorVO;
+import com.eureka.stocks.vo.StockFundamentals;
 import com.eureka.stocks.vo.SubSectorVO;
 
 import java.util.List;
 
 public class MarketAnalyticsService {
-    private final LookUpDAO lookUpDAO
-
-    { //instance variable, it's also a dependency
-    }
+    private LookUpDAO lookupDAO;  //Instance variable, its also a dependency
+    private StockFundamentalsDao stockFundamentalsDao;
 
     /**
-     * Parameterized constructor that forces an instance of  lookUpDA to be provided for the
-     * MarketAnalyticsService to function
-     *
-     * @param lookUpDAO
+     * Parameterized constructor that forces an instance o lookingUpDad to be provided for the MarketAnalyticsService to function
+     * @param lookupDAO
      */
-    public MarketAnalyticsService(LookUpDAO lookUpDAO) {
-        this.lookUpDAO = lookUpDAO;
+    public MarketAnalyticsService(LookUpDAO lookupDAO){
+        this.lookupDAO = lookupDAO;
+    }
+
+    public List<SectorVO> getAllSectors(){
+        return lookupDAO.getAllSectors();
+    }
+
+    public List<StockFundamentals> getAllStockFundamentals(){
+        return StockFundamentalsDao.getAllStockFundamentals();
     }
 
     /**
-     * Business method that fetches all Sectors from the database
-     *
+     * Business method that fetches single Subsector
+     * @param subSectorID
      * @return
      */
-    public List<SectorVO> getAllSectors() {
-        return lookUpDAO.getAllSectors();
-    }
-
-    public SubSectorVO getSingleSubsector(int subSectorID) {
-
+    public SubSectorVO getSingleSubSector(int subSectorID){
+        return lookupDAO.getSubSector(subSectorID);
     }
 }
-
-
 

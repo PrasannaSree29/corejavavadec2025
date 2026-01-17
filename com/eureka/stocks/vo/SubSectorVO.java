@@ -3,11 +3,12 @@ package com.eureka.stocks.vo;
 import java.util.Objects;
 
 public class SubSectorVO {
+
     private int subSectorID;
     private String subSectorName;
     private int sectorID;
 
-    public SubSectorVO() {
+    private SubSectorVO() {
     }
 
     public SubSectorVO(int subSectorID) {

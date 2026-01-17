@@ -1,19 +1,16 @@
 package com.eureka.stocks.vo;
 
-
 import java.util.Objects;
 
 /**
- * This class is used to create instances or objects that each represent
- * a sector record or a row from the sector lookup table
+ * This class is used to create instances/Objects that each represent a Sector Record or a row from the sector_lookup table
  */
-
 public class SectorVO {
+
     private int sectorID;
     private String sectorName;
 
-    private SectorVO(){
-
+    private SectorVO() {
     }
 
     public SectorVO(int sectorID) {

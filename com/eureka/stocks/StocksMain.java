@@ -3,29 +3,37 @@ package com.eureka.stocks;
 import com.eureka.stocks.dao.LookUpDAO;
 import com.eureka.stocks.service.MarketAnalyticsService;
 import com.eureka.stocks.vo.SectorVO;
+import com.eureka.stocks.vo.StockFundamentals;
+import com.eureka.stocks.vo.SubSectorVO;
 
 import java.util.List;
 
 public class StocksMain {
-    static void main(String[] args) {
+    public static void main(String[] args) {
+        try(LookUpDAO lookUpDAO = new LookUpDAO()){ //try-with resources construct
 
-        try{
+            //Injecting an instance of LookUpDAO to the constructor of MarketAnalyticsService, as it is a dependency that
+            //is needed for the MarketAnalyticsService instance to function
+            MarketAnalyticsService marketAnalyticsService = new MarketAnalyticsService(lookUpDAO);
 
-        }catch (Exception e){
+            //Get All Sector Information from the database
+            List<SectorVO> allSectorsList = marketAnalyticsService.getAllSectors();
+            System.out.println("NUmber of sectors returned from db is "+allSectorsList.size());
+
+            int subSectorID = 283;
+            //Get SubSector details from the database for the subSectorID listed above
+            SubSectorVO subSector = marketAnalyticsService.getSingleSubSector(subSectorID);
+            System.out.println("SubSector retrieved is "+subSector);
+
+            List<StockFundamentals> allstockFundamentalsVOList = marketAnalyticsService.getAllStockFundamentals();
+            System.out.println("total stocks "+allstockFundamentalsVOList.size());
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        //Getall sector information from the database
-        LookUpDAO lookUpDAO =new LookUpDAO();
-        //injecting an instance of lookup DAO as it is a dependancy that is needed for the market analytics service instance to function
-        MarketAnalyticsService marketAnalyticsService = new MarketAnalyticsService(lookUpDAO);
-
-        List<SectorVO> allSectorsList = marketAnalyticsService.getAllSectors();
-        System.out.println("Number of sectors returned from db is "+allSectorsList.size());
-
-        int subSectorID= 283;
-        //get subsector details
 
     }
 }
