@@ -29,7 +29,7 @@ public class StocksMain {
             } catch (Exception e) {
 
                 //Get All Stock Fundamentals
-                List<StockFundamentalsVO> allStockFundamemntalsList = marketAnalyticsService.getAllStockFundamemntals();
+                List<StockFundamentalsVO> allStockFundamemntalsList =marketAnalyticsService.getAllStockFundamemntals();
                 System.out.println("Number of SFundamentals retrieved from the DB is "+allStockFundamemntalsList.size());
 
                 //Get All SubSectors

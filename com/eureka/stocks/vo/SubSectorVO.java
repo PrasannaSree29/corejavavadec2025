@@ -1,8 +1,7 @@
 
 import java.util.Objects;
 
-public class SubSectorVO {
-    public class SubSectorVO  implements Comparable<SubSectorVO>{
+public class SubSectorVO implements Comparable<SubSectorVO>{
 
         private int subSectorID;
         private String subSectorName;
