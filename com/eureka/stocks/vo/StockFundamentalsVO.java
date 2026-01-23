@@ -7,6 +7,7 @@ public class StockFundamentalsVO implements Comparable<StockFundamentalsVO>{
     private String tickerSymbol;
     private int sectorID;
     private BigDecimal marketCap;
+    private int subSectorID;
     private Double currentRatio;
 
     private StockFundamentalsVO() {
@@ -21,6 +22,7 @@ public class StockFundamentalsVO implements Comparable<StockFundamentalsVO>{
         return "StockFundamentalsVO{" +
                 "tickerSymbol='" + tickerSymbol + '\'' +
                 ", sectorID=" + sectorID +
+                ", subSectorID=" + subSectorID +
                 ", marketCap=" + marketCap +
                 ", currentRatio=" + currentRatio +
                 '}';
@@ -45,6 +47,14 @@ public class StockFundamentalsVO implements Comparable<StockFundamentalsVO>{
     public void setMarketCap(BigDecimal marketCap) {
         this.marketCap = marketCap;
     }
+    public int getSubSectorID() {
+        return subSectorID;
+    }
+
+    public void setSubSectorID(int subSectorID) {
+        this.subSectorID = subSectorID;
+    }
+
 
     public Double getCurrentRatio() {
         return currentRatio;

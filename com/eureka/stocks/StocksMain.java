@@ -58,6 +58,27 @@ public class StocksMain {
             String tickerSymbol = "AMD";
             List<StocksPriceHistoryVO> amdStocksPriceHistory = marketAnalyticsService.getStockPriceHistoryByTickerSymbolAndDates(tickerSymbol, fromDate, toDate);
             System.out.println("amdStocksPriceHistory.size() = "+amdStocksPriceHistory.size());
+
+            //Deal with Healthcare Stocks
+            marketAnalyticsService.dealingWithHealthCareStocks();
+
+            //Per Sector method
+            marketAnalyticsService.splitStocksBySector();
+
+            //Identify BlueChips
+            marketAnalyticsService.identifyBlueChips();
+
+            //Calculate Small Cap MktCap Totals
+            marketAnalyticsService.calculateSmallCapsMktCapTotal();
+
+            //Calculate Avg Market Cap by SubSector
+            marketAnalyticsService.getAverageMktCapBySubSector();
+
+
+
+
+
+
         } catch (StockException e) {
             e.printStackTrace();
         } catch (Exception e) {

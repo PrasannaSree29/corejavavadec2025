@@ -20,6 +20,7 @@ public class StockFundamentalsDAO extends BaseDAO{
                 select
                     sf.ticker_symbol,
                     sf.sector_id ,
+                     sf.subsector_id,
                     sf.market_cap,
                     sf.current_ratio
                 from
@@ -33,6 +34,7 @@ public class StockFundamentalsDAO extends BaseDAO{
             while(resultSet.next()){
                 StockFundamentalsVO stockFundamentalsVO = new StockFundamentalsVO(resultSet.getString("ticker_symbol"));
                 stockFundamentalsVO.setSectorID(resultSet.getInt("sector_id"));
+                stockFundamentalsVO.setSubSectorID(resultSet.getInt("subsector_id"));
                 stockFundamentalsVO.setMarketCap(resultSet.getBigDecimal("market_cap"));
                 stockFundamentalsVO.setCurrentRatio(resultSet.getDouble("current_ratio"));
                 sfList.add(stockFundamentalsVO);
