@@ -15,7 +15,7 @@ public class StockFundamentalsDAO extends BaseDAO{
         super();
     }
 
-    public List<StockFundamentalsVO> getAllStockFundamentals() {
+    public List<StockFundamentalsVO> getStockFundamentals() {
         String sfQuery = """
                 select
                     sf.ticker_symbol,
@@ -36,7 +36,7 @@ public class StockFundamentalsDAO extends BaseDAO{
                 stockFundamentalsVO.setSectorID(resultSet.getInt("sector_id"));
                 stockFundamentalsVO.setSubSectorID(resultSet.getInt("subsector_id"));
                 stockFundamentalsVO.setMarketCap(resultSet.getBigDecimal("market_cap"));
-                stockFundamentalsVO.setCurrentRatio(resultSet.getDouble("current_ratio"));
+                stockFundamentalsVO.setCurrentRatio(resultSet.getBigDecimal("current_ratio"));
                 sfList.add(stockFundamentalsVO);
             }
             return sfList;

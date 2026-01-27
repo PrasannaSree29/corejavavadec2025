@@ -13,15 +13,26 @@ public class StocksPriceHistoryVO implements Comparable<StocksPriceHistoryVO> {
     private BigDecimal closePrice;
     private BigDecimal highPrice;
     private BigDecimal lowPrice;
+    private String state;
+
 
     public StocksPriceHistoryVO(String tickerSymbol, LocalDate tradingDate) {
         this.tickerSymbol = tickerSymbol;
         this.tradingDate = tradingDate;
     }
 
+
     public String getTickerSymbol() {
         return tickerSymbol;
     }
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 
     public LocalDate getTradingDate() {
         return tradingDate;
@@ -68,6 +79,8 @@ public class StocksPriceHistoryVO implements Comparable<StocksPriceHistoryVO> {
                 ", closePrice=" + closePrice +
                 ", highPrice=" + highPrice +
                 ", lowPrice=" + lowPrice +
+                ", state=" + state +
+
                 '}';
     }
 

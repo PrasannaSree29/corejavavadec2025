@@ -102,10 +102,10 @@ public class LookUpDAO  extends BaseDAO{
             PreparedStatement preparedStatement = connection.prepareStatement(subSectorQuery);
             ResultSet resultSet=preparedStatement.executeQuery();
             while (resultSet.next()){
-                SubSectorVO subSectorVO = new SubSectorVO((resultSet.getInt("subsector_id")));
+                SubSectorVO subSectorVO = new SubSectorVO(resultSet.getInt("subsector_id"));
                 subSectorVO.setSectorID(resultSet.getInt("sector_id"));
                 subSectorVO.setSubSectorName(resultSet.getString("subsector_name"));
-
+                subSectorList.add(subSectorVO);
             }
             return subSectorList;
         }catch (SQLException e){

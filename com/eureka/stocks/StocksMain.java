@@ -25,9 +25,11 @@ public class StocksMain {
         ) {
             // Injecting an instance of lookUpDAO to the constructor of MarketAnalyticsService,
             // as it is a dependency that is needed for the MarketAnalyticsService instance to function
-            MarketAnalyticsService marketAnalyticsService = new MarketAnalyticsService(lookUpDAO, stockFundamentalsDAO, stocksPriceHistoryDAO);
+            MarketAnalyticsService
 
-            // Get All Sector Information from the database
+                    marketAnalyticsService = new MarketAnalyticsService(lookUpDAO, stockFundamentalsDAO, stocksPriceHistoryDAO);
+
+           // Get All Sector Information from the database
             List<SectorVO> allSectorsList = marketAnalyticsService.getAllSectors();
             System.out.println("Number of sectors returned from DB is " + allSectorsList.size());
             System.out.println(allSectorsList);
@@ -74,9 +76,24 @@ public class StocksMain {
             //Calculate Avg Market Cap by SubSector
             marketAnalyticsService.getAverageMktCapBySubSector();
 
+            // sector names and number of stocks in each sector
+            marketAnalyticsService.getSectorStocksCount();
+            // coolway
+            marketAnalyticsService.getSectorStocksCountCoolWay();
 
 
 
+           LocalDate anotherFromDate =  LocalDate.parse("2018-01-01",DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            //For each year, Calculate the lowest price for a given stock
+            marketAnalyticsService.getLowestPriceForGivenStock("INTC", anotherFromDate, anotherFromDate.plusYears(7));
+
+            //StreamsRecap
+            marketAnalyticsService.streamsRecap();
+
+            LocalDate performanceFromDate = LocalDate.parse("2022-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            //Performance requirement
+            marketAnalyticsService.calculateStockPerformanceByState(performanceFromDate, performanceFromDate.plusYears(3));
 
 
         } catch (StockException e) {

@@ -8,7 +8,7 @@ public class StockFundamentalsVO implements Comparable<StockFundamentalsVO>{
     private int sectorID;
     private BigDecimal marketCap;
     private int subSectorID;
-    private Double currentRatio;
+    private BigDecimal currentRatio;
 
     private StockFundamentalsVO() {
     }
@@ -56,11 +56,11 @@ public class StockFundamentalsVO implements Comparable<StockFundamentalsVO>{
     }
 
 
-    public Double getCurrentRatio() {
+    public BigDecimal getCurrentRatio() {
         return currentRatio;
     }
 
-    public void setCurrentRatio(Double currentRatio) {
+    public void setCurrentRatio(BigDecimal currentRatio) {
         this.currentRatio = currentRatio;
     }
 
