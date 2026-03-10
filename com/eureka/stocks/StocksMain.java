@@ -1,5 +1,6 @@
 package com.eureka.stocks;
 
+import com.eureka.stocks.dao.CompanyLocationsDAO;
 import com.eureka.stocks.dao.LookUpDAO;
 import com.eureka.stocks.dao.StockFundamentalsDAO;
 import com.eureka.stocks.dao.StocksPriceHistoryDAO;
@@ -77,7 +78,6 @@ public class StocksMain {
             marketAnalyticsService.getAverageMktCapBySubSector();
 
             // sector names and number of stocks in each sector
-            marketAnalyticsService.getSectorStocksCount();
             // coolway
             marketAnalyticsService.getSectorStocksCountCoolWay();
 
@@ -90,6 +90,18 @@ public class StocksMain {
 
             //StreamsRecap
             marketAnalyticsService.streamsRecap();
+            marketAnalyticsService.dealingWithMyTantrums();
+           // marketAnalyticsService.getHiLoMktCapByState();
+
+            //Practice Demo
+            marketAnalyticsService.getAllSectorsNew();
+
+            //CompanyLocationsDAO companyLocationsDAO = new CompanyLocationsDAO();
+           // companyLocationsDAO.getCompanyAddressByTicker("NVDA");
+
+//
+//            CompanyLocationsDAO dao = new CompanyLocationsDAO();
+//            dao.getCompaniesByState("CA");
 
             LocalDate performanceFromDate = LocalDate.parse("2022-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             //Performance requirement

@@ -22,8 +22,8 @@ public class JDBCPlayground {
 
             List<Integer> sectorIDList=List.of(35,38,41,44);
             getAllSectorRecords(dbConnection);
-            getSubSectorRecord(dbConnection,neededSubSectorID);
-            getSectorsForGivenIDs(dbConnection,sectorIDList);
+//            getSubSectorRecord(dbConnection,neededSubSectorID);
+//            getSectorsForGivenIDs(dbConnection,sectorIDList);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -39,12 +39,7 @@ public class JDBCPlayground {
     private static void getSectorsForGivenIDs(Connection dbConnection, List<Integer> sectorIDList) {
         String sectorQuery= """
                 select
-                	sl.sector_id,
-                	sl.sector_name
-                from
-                	endeavour.sector_lookup sl
-                where
-                	sl.sector_id in(
+                	s
                 """;
         String dynamicQuestionMarks="?,".repeat(sectorIDList.size());
         String finalQuery=sectorQuery+dynamicQuestionMarks.substring(0,dynamicQuestionMarks.length()-1)+")";

@@ -52,7 +52,6 @@ public class SectorVO implements Comparable<SectorVO> {
                 ", sectorName='" + sectorName + '\'' +
                 '}';
     }
-
     /**
      * Natural order sorting by SectorName ascending
      * @param o the object to be compared.

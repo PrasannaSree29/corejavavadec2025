@@ -24,6 +24,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
+//import static java.util.stream.Nodes.collect;
+
 public class MarketAnalyticsService {
     // Instance variable
     // It's also a dependency because
@@ -45,7 +47,6 @@ public class MarketAnalyticsService {
 
     /**
      * Business method that fetches all Sectors from the database
-     *
      * @return
      */
     public List<SectorVO> getAllSectors() {
@@ -62,13 +63,32 @@ public class MarketAnalyticsService {
         return allSectorsList;
     }
 
+    public List<SectorVO> getAllSectorsNew(){
+        List<SectorVO> allSectorList = lookUpDAO.getAllSectors();
+
+        Map<Integer, String> collect = allSectorList.stream()
+                .collect(Collectors.toMap(
+                        SectorVO::getSectorID,
+                        SectorVO::getSectorName
+                ));
+        Collections.sort(allSectorList);
+        return allSectorList;
+
+
+    }
+
+
+
+
+
+
 
     /**
      * Business method that fetches single SubSector from the database as per the input provided
-     *
      * @param subSectorID
      * @return
      */
+
     public SubSectorVO getSingleSubSector(int subSectorID) {
         return lookUpDAO.getSubSector(subSectorID);
     }
@@ -76,7 +96,6 @@ public class MarketAnalyticsService {
     public List<StockFundamentalsVO> getStockFundamentals() {
         List<StockFundamentalsVO> stockFundamentalsList = stockFundamentalsDAO.getStockFundamentals();
         // Collections.sort(stockFundamentalsList, new SFMarketCapAscComparator().reversed());
-
         // Sort by Market Cap using Anonymous Inner Class
         // stockFundamentalsList.sort(new Comparator<StockFundamentalsVO>() {
         //     @Override
@@ -105,6 +124,7 @@ public class MarketAnalyticsService {
         );
         return stockFundamentalsList;
     }
+
 
     public List<SubSectorVO> getAllSubSectors() {
         List<SubSectorVO> allSubSectorsList = lookUpDAO.getAllSubSectors();
@@ -137,6 +157,46 @@ public class MarketAnalyticsService {
         );
         return priceHistoryList;
     }
+
+    public void dealingWithMyTantrums(){
+        List<StockFundamentalsVO> newStockFundamentals = stockFundamentalsDAO.getStockFundamentals();
+        List<StockFundamentalsVO> newHealthCareList = new ArrayList<>();
+        //getting only Healthcare stocks- coolway
+
+        List<StockFundamentalsVO> coolHealthList = newStockFundamentals.stream()
+                .filter(stockFundamentalsVO -> stockFundamentalsVO.getSectorID()!=0)
+                .filter(stockFundamentalsVO -> stockFundamentalsVO.getSectorID()==34)
+                .sorted(Comparator.comparing(StockFundamentalsVO::getMarketCap).reversed())
+                .collect(Collectors.toList());
+        System.out.println(coolHealthList);
+
+    }
+
+    //    Print sector names and number of stocks in each sector:
+//    Healthcare: 510
+//    Basic Materials: 108
+//    Financial Services: 486
+//    Industrials: 391
+//    Technology: 368
+        public void getSectorStocksCount(){
+        List<StockFundamentalsVO> allStockFundamentalsList =stockFundamentalsDAO.getStockFundamentals();
+        List<SectorVO> allSectorsList =lookUpDAO.getAllSectors();
+        Map<String,Long> finalOutputMap =new TreeMap<>();
+        Map<Integer, String> sectorNameByIDMap = allSectorsList.stream()
+                .collect(Collectors.toMap(
+                        SectorVO::getSectorID,
+                        SectorVO::getSectorName
+                ));
+
+        Map<Integer, Long> sectorCountByIDMap =allStockFundamentalsList.stream()
+                .collect(Collectors.groupingBy(StockFundamentalsVO::getSectorID,Collectors.counting()));
+
+        sectorCountByIDMap.forEach((sectorID, stocksCount)->{
+            finalOutputMap.put(sectorNameByIDMap.get(sectorID),stocksCount);
+        });
+        System.out.println(finalOutputMap);
+    }
+
 
     public void dealingWithHealthCareStocks() {
 
@@ -244,8 +304,8 @@ public class MarketAnalyticsService {
                 .collect(Collectors.toMap(
                         SubSectorVO::getSubSectorID,
                         SubSectorVO::getSubSectorName
-                ));
 
+                ));
 
         Map<String, BigDecimal> finalOutputMap = new HashMap<>();
         //map which contains sublist of stocks objects belonging to each subsectorID
@@ -262,32 +322,6 @@ public class MarketAnalyticsService {
         });
         System.out.println(finalOutputMap);
 
-    }
-
-
-//    Print sector names and number of stocks in each sector:
-//    Healthcare: 510
-//    Basic Materials: 108
-//    Financial Services: 486
-//    Industrials: 391
-//    Technology: 368
-    public void getSectorStocksCount(){
-        List<StockFundamentalsVO> allStockFundamentalsList =stockFundamentalsDAO.getStockFundamentals();
-        List<SectorVO> allSectorsList =lookUpDAO.getAllSectors();
-        Map<String,Long> finalOutputMap =new TreeMap<>();
-        Map<Integer, String> sectorNameByIDMap = allSectorsList.stream()
-                .collect(Collectors.toMap(
-                        SectorVO::getSectorID,
-                        SectorVO::getSectorName
-                ));
-
-        Map<Integer, Long> sectorCountByIDMap =allStockFundamentalsList.stream()
-                .collect(Collectors.groupingBy(StockFundamentalsVO::getSectorID,Collectors.counting()));
-
-        sectorCountByIDMap.forEach((sectorID, stocksCount)->{
-            finalOutputMap.put(sectorNameByIDMap.get(sectorID),stocksCount);
-        });
-        System.out.println(finalOutputMap);
     }
 
     //    Print sector names and number of stocks in each sector:
@@ -341,7 +375,6 @@ public class MarketAnalyticsService {
         System.out.println(finalOutputMap);
 
     }
-
 
     public void streamsRecap() {
 
@@ -398,14 +431,24 @@ public class MarketAnalyticsService {
                 .sorted()
                 .collect(Collectors.joining(","));
 
-        //Calculate total market cap for HealthCare stocks
+        //Calculate total avg market cap for HealthCare stocks
 
-        Optional<BigDecimal> healthCareTotalOptional = healthCareList.stream()
+        List<StockFundamentalsVO> healthCareTotalOptional = healthCareList.stream()
+                .filter(stockFundamentalsVO -> stockFundamentalsVO.getSectorID()==34)
+                        .toList();
+        Optional<BigDecimal> totalMarketCap = healthCareTotalOptional.stream()
                 .map(StockFundamentalsVO::getMarketCap)
-                .reduce((a, b) -> a.add(b));
+                .reduce(BigDecimal::add);
+
+        totalMarketCap.ifPresent(value -> System.out.println("Avg Market Cap:"+value.divide(BigDecimal.valueOf(healthCareTotalOptional.size()), 2, RoundingMode.HALF_UP)));
+
+
+
+        //   .map(StockFundamentalsVO::getMarketCap);
+             //   .reduce((a, b) -> a.add(b));
         // .reduce(BigDecimal::add); //Method referance
 
-        healthCareTotalOptional.ifPresent(System.out::println);
+//        healthCareTotalOptional.ifPresent(System.out::println);
         
         //Split all stock price history by Month for AMD
         LocalDate fromDate = LocalDate.parse("2024-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -415,6 +458,7 @@ public class MarketAnalyticsService {
 
 
     }
+
     /**
      * --  During the period of 2022 to 2024, identify the top performing stock for each state in each year and its performance
      * --  Best performing stock is % of growth between Closing Price EOY and Opening Price SOY
@@ -446,6 +490,16 @@ public class MarketAnalyticsService {
                 priceHistoryListByTckYrMap.put(tickerByYearVO, phTickerList);
             });
         });
+
+//          List<StockFundamentalsVO> fundamentalsList =
+//                          stockFundamentalsDAO.getAllStockFundamentals(connection);
+//                                 Map<Integer, String> sectorIdToNameMap = getSectorIdToNameMap(connection);
+//                                long riskyCompanyCount = fundamentalsList.stream()
+//                          .filter(f -> f.getCurrentRatio() < 1.0)
+//                        .count();
+//                       System.out.println(riskyCompanyCount > 0 ? "YES" : "NO");
+//                  System.out.println("Total risky companies (currentRatio < 1.0) = " + riskyCompanyCount);
+//
 
         List<StockPerformanceVO> performanceList = new ArrayList<>();
 
@@ -496,11 +550,14 @@ public class MarketAnalyticsService {
         });
         Collections.sort(finalOutputList);
 
+
         Instant finish = Instant.now();
         long timeElapsed = Duration.between(start, finish).toMillis();
         System.out.println("Time taken to complete the requirement is "+timeElapsed);
         System.out.println(finalOutputList);
     }
-
+    //get highest and lowest marketcap for vermont state and get the stock details
+    //Using streams, No joining in SQL
 
 }
+

@@ -39,7 +39,7 @@ public class StocksPriceHistoryDAO extends BaseDAO {
             // preparedStatement.setDate(3, Date.valueOf(toDate));
             preparedStatement.setObject(2, fromDate);
             preparedStatement.setObject(3, toDate);
-            System.out.println("Prepared Query: "+preparedStatement);
+//            System.out.println("Prepared Query: "+preparedStatement);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
